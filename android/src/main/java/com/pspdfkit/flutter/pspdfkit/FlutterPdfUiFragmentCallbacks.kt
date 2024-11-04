@@ -26,6 +26,10 @@ import com.pspdfkit.listeners.DocumentListener
 import com.pspdfkit.ui.PdfFragment
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodChannel
+import com.pspdfkit.annotations.AnnotationProvider
+import com.pspdfkit.annotations.Annotation
+import com.pspdfkit.ui.special_mode.controller.AnnotationCreationController
+import com.pspdfkit.ui.special_mode.manager.AnnotationManager
 
 /**
  * Callbacks for the FlutterPdfUiFragment.
@@ -41,7 +45,7 @@ class FlutterPdfUiFragmentCallbacks(
     List<Map<String, Any>>?,
     private val binaryMessenger: BinaryMessenger,
     private val flutterWidgetCallback: FlutterWidgetCallback
-) : FragmentManager.FragmentLifecycleCallbacks(), DocumentListener {
+) : FragmentManager.FragmentLifecycleCallbacks(), DocumentListener, AnnotationManager.OnAnnotationCreationModeChangeListener {
 
     private var pdfFragment: PdfFragment? = null
     private var flutterPdfDocument: FlutterPdfDocument? = null
@@ -61,6 +65,7 @@ class FlutterPdfUiFragmentCallbacks(
             }
             pdfFragment = f
             pdfFragment?.addDocumentListener(this)
+            pdfFragment?.addOnAnnotationCreationModeChangeListener(this)
         }
     }
 
@@ -113,5 +118,17 @@ class FlutterPdfUiFragmentCallbacks(
                 flutterPdfDocument = null
             }
         }
+    }
+
+    override fun onEnterAnnotationCreationMode(annotationCreationController: AnnotationCreationController) {
+
+    }
+
+    override fun onChangeAnnotationCreationMode(annotationCreationController: AnnotationCreationController) {
+
+    }
+
+    override fun onExitAnnotationCreationMode(annotationCreationController: AnnotationCreationController) {
+        methodChannel.invokeMethod("onExitAnnotationCreationMode", null)
     }
 }
