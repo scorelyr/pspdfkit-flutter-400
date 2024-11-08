@@ -28,6 +28,7 @@ class PspdfkitWidget extends StatefulWidget {
   final PdfDocumentLoadedCallback? onPdfDocumentLoaded;
   final PdfDocumentLoadFailedCallback? onPdfDocumentError;
   final PageChangedCallback? onPageChanged;
+  final VoidCallback? onExitAnnotationCreationMode;
 
   const PspdfkitWidget({
     Key? key,
@@ -37,6 +38,7 @@ class PspdfkitWidget extends StatefulWidget {
     this.onPdfDocumentLoaded,
     this.onPdfDocumentError,
     this.onPageChanged,
+    this.onExitAnnotationCreationMode,
   }) : super(key: key);
 
   @override
