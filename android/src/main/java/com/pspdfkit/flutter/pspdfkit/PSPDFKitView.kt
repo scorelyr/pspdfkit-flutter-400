@@ -647,8 +647,12 @@ internal class PSPDFKitView(
             }
             "jumpToPage" -> {
                 val pageIndex: Int = requireNotNull(call.argument("pageIndex"))
-                pdfUiFragment.pageIndex = pageIndex
-                result.success(true)
+                try {
+                    pdfUiFragment.pageIndex = pageIndex
+                    result.success(true)
+                } catch (e: IllegalArgumentException) {
+                    result.error("IllegalPage", e.message, null)
+                }
             }
 
             "isShowingTwoPages" -> {

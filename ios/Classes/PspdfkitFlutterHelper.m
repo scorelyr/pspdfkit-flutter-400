@@ -215,7 +215,7 @@
             [pdfViewController setPageIndex:pageIndex animated:YES];
             result(@(YES));
         } @catch (NSException *exception) {
-            result([FlutterError errorWithCode:@"" message:exception.reason details:nil]);
+            result([FlutterError errorWithCode:@"IllegalPage" message:exception.reason details:nil]);
         }
     } else if ([@"isShowingTwoPages" isEqualToString:call.method]) {
         BOOL showingTwoPages = pdfViewController.documentViewController.layout.spreadMode != PSPDFDocumentViewLayoutSpreadModeSingle;

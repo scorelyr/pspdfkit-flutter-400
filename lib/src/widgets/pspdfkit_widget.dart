@@ -152,8 +152,12 @@ class _PspdfkitWidgetState extends State<PspdfkitWidget> {
 
   @override
   void dispose() {
-    PspdfkitWidgetCallbacks.setUp(null,
-        messageChannelSuffix: 'widget.callbacks.$_id');
+    try {
+      PspdfkitWidgetCallbacks.setUp(null,
+          messageChannelSuffix: 'widget.callbacks.$_id');
+    } catch (e) {
+      debugPrint(e.toString());
+    }
     super.dispose();
   }
 }
