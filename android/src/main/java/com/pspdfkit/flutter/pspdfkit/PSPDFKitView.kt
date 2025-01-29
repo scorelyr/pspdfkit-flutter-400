@@ -648,9 +648,13 @@ internal class PSPDFKitView(
             "jumpToPage" -> {
                 val pageIndex: Int = requireNotNull(call.argument("pageIndex"))
                 try {
-                    pdfUiFragment.pageIndex = pageIndex
-                    result.success(true)
-                } catch (e: IllegalArgumentException) {
+                    if(pageIndex < document.pageCount) {
+                        pdfUiFragment.pageIndex = pageIndex
+                        result.success(true)
+                    } else {
+                        result.error("InvalidPage", "Page index is out of bounds", null)
+                    }
+                } catch (e: Exception) {
                     result.error("IllegalPage", e.message, null)
                 }
             }
